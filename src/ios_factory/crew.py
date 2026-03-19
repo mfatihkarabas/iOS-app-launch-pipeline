@@ -38,7 +38,7 @@ class GoNoGoCrew:
     """Single-agent gate that scores an idea and returns GO or NO-GO."""
 
     agents_config = "config/agents.yaml"
-    tasks_config  = "config/tasks.yaml"
+    tasks_config  = "config/tasks_gate.yaml"
 
     @agent
     def idea_evaluator(self) -> Agent:
@@ -71,7 +71,7 @@ class iOSFactoryCrew:
     """App Store Launch Pipeline – four sequential specialist agents."""
 
     agents_config = "config/agents.yaml"
-    tasks_config  = "config/tasks.yaml"
+    tasks_config  = "config/tasks_pipeline.yaml"
 
     # ── Agents ──────────────────────────────────────────────────────
 

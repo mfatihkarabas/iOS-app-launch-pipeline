@@ -1,0 +1,79 @@
+# ──────────────────────────────────────────────
+# iOS Software Factory – Gate Crew (Step 0)
+# ──────────────────────────────────────────────
+
+idea_evaluation:
+  description: >
+    Evaluate the viability of the following iOS app idea: {user_idea}
+
+    Score the idea on exactly two dimensions, each strictly out of 10:
+
+    ── DIMENSION 1: IDEA BRIGHTNESS (1-10) ──────────────────────────────────
+    Assess: novelty vs existing iOS apps, UX/design differentiation,
+    technical feasibility on iOS, monetization creativity, "wow factor".
+      1-4 → Weak   (generic or already done, no clear differentiation)
+      5-6 → Average (decent but nothing meaningfully new)
+      7-8 → Strong  (clear differentiation, solves a genuine pain point)
+      9-10→ Exceptional (market-changing, highly innovative)
+
+    ── DIMENSION 2: MARKET OPPORTUNITY (1-10) ───────────────────────────────
+    Assess: total addressable market size, App Store category saturation,
+    monetization viability (IAP, subscription, ads), trend/timing alignment,
+    long-term retention potential.
+      1-4 → Weak   (niche, saturated, or poor monetisation path)
+      5-6 → Moderate (decent market, competitive category)
+      7-8 → Strong  (large market, clear monetisation strategy)
+      9-10→ Exceptional (blue-ocean or rapidly growing segment)
+
+    ── DECISION FRAMEWORK (market-first, top-tier entrepreneur lens) ─────────
+    Market Opportunity carries 60 % weight; Idea Brightness carries 40 %.
+    Weighted Score = (Opportunity × 0.6) + (Brightness × 0.4)
+
+    Tier rules applied strictly in order:
+
+    STRONG GO  ✅✅ → Both dims ≥ 8
+                     (Rare — world-class signal, commit fully, move fast.)
+
+    GO         ✅  → Both dims ≥ 7
+                     OR  one dim ≥ 8 AND the other ≥ 6
+                     (Clear conviction — build with confidence.)
+
+    CONDITIONAL GO ⚠️ → Weighted Score ≥ 6.5 AND both dims ≥ 5
+                         (Promising but one leg is soft — name the gap,
+                          prescribe the pivot, re-evaluate before building.)
+
+    NO-GO      ❌  → Either dim ≤ 4  OR  Weighted Score < 6.5
+                     (Broken premise — do not build. Rethink the core.)
+
+    Rationale: A 6/10 in any dimension means "average". Top-tier founders
+    never bet months of development runway on average. Real conviction
+    demands clear differentiation (Brightness ≥ 7) AND proven demand
+    (Opportunity ≥ 7). Market size compounds — a great idea in a tiny market
+    stays tiny. If only the market is weak, no execution will save it.
+    Provide bullet-point reasoning (3-5 bullets each) for both dimensions.
+  expected_output: >
+    IDEA BRIGHTNESS SCORE: <n>/10
+    MARKET OPPORTUNITY SCORE: <n>/10
+    WEIGHTED SCORE: <x.x>/10  (Opportunity × 0.6 + Brightness × 0.4)
+
+    DECISION: STRONG GO ✅✅  /  GO ✅  /  CONDITIONAL GO ⚠️  /  NO-GO ❌
+
+    IDEA BRIGHTNESS – Reasoning:
+    • <bullet 1>
+    • <bullet 2>
+    • <bullet 3>
+
+    MARKET OPPORTUNITY – Reasoning:
+    • <bullet 1>
+    • <bullet 2>
+    • <bullet 3>
+
+    PIVOT ADVICE (only if CONDITIONAL GO or NO-GO):
+    • <specific, actionable change to strengthen the weak dimension>
+
+    RECOMMENDATION:
+    <2-3 sentences: what to do next — e.g. "Start MVP targeting X" for GO,
+    "Niche down to Y and re-score" for CONDITIONAL GO, or "Rethink Z axis
+    entirely" for NO-GO>
+  agent: idea_evaluator
+  output_file: output/0_GoNoGo_Decision.md
