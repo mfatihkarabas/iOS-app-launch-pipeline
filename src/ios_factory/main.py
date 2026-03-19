@@ -232,14 +232,18 @@ def run() -> None:
         print("🚫  Pipeline HALTED — fundamental viability issues detected.")
         print("📄  See output/0_GoNoGo_Decision.md for the full breakdown.")
         print("\n💡  Either dim scored ≤ 4, or the Weighted Score is below 6.5.")
-        print("    Rethink the core premise before committing any resources.\n")
+        print("    Rethink the core premise before committing any resources.")
+        print("\n🔭  5 stronger alternative ideas are ready in:")
+        print("    output/0b_Idea_Finder.md  ← pick the #1 ranked and re-run\n")
         sys.exit(0)
 
     if decision == "CONDITIONAL GO":
         print("⚠️   Pipeline HALTED — one dimension is below conviction threshold.")
         print("📄  See output/0_GoNoGo_Decision.md → PIVOT ADVICE section.")
         print("\n💡  Strengthen the weak leg (see PIVOT ADVICE), then re-run the gate.")
-        print("    Do not start building until both dimensions earn a GO.\n")
+        print("    Do not start building until both dimensions earn a GO.")
+        print("\n🔭  3 targeted pivot ideas are ready in:")
+        print("    output/0b_Idea_Finder.md  ← pick the #1 ranked and re-run\n")
         sys.exit(0)
 
     # ── STEPS 1-4: Full App Store Pipeline (STRONG GO or GO) ─────────────────
@@ -251,6 +255,7 @@ def run() -> None:
     print("═" * 64)
     print("\n📁  Output files:")
     print("   • output/0_GoNoGo_Decision.md  ← Idea viability gate verdict")
+    print("   • output/0b_Idea_Finder.md     ← Expansion spin-offs & adjacent bets")
     print("   • output/1_Market_Research.md  ← Competitor analysis + gaps")
     print("   • output/2_App_Store_Copy.md   ← Title, subtitle, description")
     print("   • output/3_ASO_Report.md       ← Keywords + A/B variants")

@@ -35,7 +35,7 @@ def _build_llm() -> LLM:
 
 @CrewBase
 class GoNoGoCrew:
-    """Single-agent gate that scores an idea and returns GO or NO-GO."""
+    """Gate crew: scores an idea → GO/NO-GO verdict + ranked alternative ideas."""
 
     agents_config = "config/agents.yaml"
     tasks_config  = "config/tasks_gate.yaml"
@@ -48,9 +48,21 @@ class GoNoGoCrew:
             verbose=True,
         )
 
+    @agent
+    def idea_finder(self) -> Agent:
+        return Agent(
+            config=self.agents_config["idea_finder"],  # type: ignore[index]
+            llm=_build_llm(),
+            verbose=True,
+        )
+
     @task
     def idea_evaluation(self) -> Task:
         return Task(config=self.tasks_config["idea_evaluation"])  # type: ignore[index]
+
+    @task
+    def idea_finding(self) -> Task:
+        return Task(config=self.tasks_config["idea_finding"])  # type: ignore[index]
 
     @crew
     def crew(self) -> Crew:

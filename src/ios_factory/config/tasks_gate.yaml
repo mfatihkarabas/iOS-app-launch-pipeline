@@ -77,3 +77,70 @@ idea_evaluation:
     entirely" for NO-GO>
   agent: idea_evaluator
   output_file: output/0_GoNoGo_Decision.md
+
+idea_finding:
+  description: >
+    You have just received the viability gate evaluation for the iOS app idea.
+    Study the scores and verdict carefully, then generate a ranked shortlist of
+    ideas as described below.
+
+    ── WHAT TO GENERATE BASED ON VERDICT ────────────────────────────────────
+
+    STRONG GO ✅✅ or GO ✅:
+      The original idea has strong fundamentals. Generate 3 expansion variants:
+      — Adjacent ideas that leverage the same core mechanics in a new vertical
+      — Spin-off ideas that target a different audience with the same engine
+      — A premium / B2B angle of the original idea
+      These should feel like a portfolio of bets around the validated thesis.
+
+    CONDITIONAL GO ⚠️:
+      One dimension is soft. Generate 3 pivot variants that fix exactly that
+      weak dimension while preserving the strong one. Be specific: if Market
+      Opportunity scored low, propose ideas in larger or less saturated markets.
+      If Idea Brightness scored low, propose ideas with stronger differentiation.
+      Each pivot must explain in one sentence why it repairs the weak score.
+
+    NO-GO ❌:
+      The core premise is broken. Do not polish a bad idea — abandon it.
+      Generate 5 fundamentally different ideas in adjacent problem spaces that
+      share some DNA with the original but fix both weak dimensions.
+      At least one must target a market with >$500M TAM on the App Store.
+
+    ── SCORING EACH IDEA ─────────────────────────────────────────────────────
+    For every idea you generate, estimate:
+      • Idea Brightness score (1-10) with a one-line rationale
+      • Market Opportunity score (1-10) with a one-line rationale
+      • Weighted Score = (Opportunity × 0.6) + (Brightness × 0.4)
+      • Predicted tier: STRONG GO / GO / CONDITIONAL GO / NO-GO
+
+    Rank the shortlist by Weighted Score descending.
+    The #1 ranked idea must be ready to feed directly into the App Store
+    Launch Pipeline as a replacement or complement to the original.
+  expected_output: >
+    ORIGINAL VERDICT: <verdict from gate>
+    ORIGINAL WEIGHTED SCORE: <x.x>/10
+
+    ── IDEA SHORTLIST (ranked by Weighted Score) ─────────────────────────────
+
+    #1  <Idea Name>
+    Hook: <one punchy sentence — what it is and why it wins>
+    Idea Brightness:    <n>/10 — <one-line rationale>
+    Market Opportunity: <n>/10 — <one-line rationale>
+    Weighted Score:     <x.x>/10  →  <predicted tier>
+    Why it beats the original: <one sentence>
+
+    #2  <Idea Name>
+    Hook: <one punchy sentence>
+    Idea Brightness:    <n>/10 — <one-line rationale>
+    Market Opportunity: <n>/10 — <one-line rationale>
+    Weighted Score:     <x.x>/10  →  <predicted tier>
+    Why it beats the original: <one sentence>
+
+    [repeat for all ideas in the shortlist]
+
+    ── RECOMMENDED NEXT STEP ─────────────────────────────────────────────────
+    <1-2 sentences: which idea to run through the full pipeline next and why>
+  agent: idea_finder
+  context:
+    - idea_evaluation
+  output_file: output/0b_Idea_Finder.md
