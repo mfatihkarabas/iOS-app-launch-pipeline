@@ -1,0 +1,154 @@
+# ──────────────────────────────────────────────
+# iOS Software Factory – App Store Launch Pipeline
+# ──────────────────────────────────────────────
+# Gate (0): Idea Evaluation → GO / NO-GO
+# Sequential (1-4): Researcher → Copywriter → ASO → Legal
+
+idea_evaluation:
+  description: >
+    Evaluate the viability of the following iOS app idea: {user_idea}
+
+    Score the idea on exactly two dimensions, each strictly out of 10:
+
+    ── DIMENSION 1: IDEA BRIGHTNESS (1-10) ──────────────────────────────────
+    Assess: novelty vs existing iOS apps, UX/design differentiation,
+    technical feasibility on iOS, monetization creativity, "wow factor".
+      1-4 → Weak   (generic or already done, no clear differentiation)
+      5-6 → Average (decent but nothing meaningfully new)
+      7-8 → Strong  (clear differentiation, solves a genuine pain point)
+      9-10→ Exceptional (market-changing, highly innovative)
+
+    ── DIMENSION 2: MARKET OPPORTUNITY (1-10) ───────────────────────────────
+    Assess: total addressable market size, App Store category saturation,
+    monetization viability (IAP, subscription, ads), trend/timing alignment,
+    long-term retention potential.
+      1-4 → Weak   (niche, saturated, or poor monetisation path)
+      5-6 → Moderate (decent market, competitive category)
+      7-8 → Strong  (large market, clear monetisation strategy)
+      9-10→ Exceptional (blue-ocean or rapidly growing segment)
+
+    ── DECISION FRAMEWORK (market-first, top-tier entrepreneur lens) ──────────
+    Market Opportunity carries 60 % weight; Idea Brightness carries 40 %.
+    Weighted Score = (Opportunity × 0.6) + (Brightness × 0.4)
+
+    Tier rules applied strictly in order:
+
+    STRONG GO  ✅✅ → Both dims ≥ 8
+                     (Rare — world-class signal, commit fully, move fast.)
+
+    GO         ✅  → Both dims ≥ 7
+                     OR  one dim ≥ 8 AND the other ≥ 6
+                     (Clear conviction — build with confidence.)
+
+    CONDITIONAL GO ⚠️ → Weighted Score ≥ 6.5 AND both dims ≥ 5
+                         (Promising but one leg is soft — name the gap,
+                          prescribe the pivot, re-evaluate before building.)
+
+    NO-GO      ❌  → Either dim ≤ 4  OR  Weighted Score < 6.5
+                     (Broken premise — do not build. Rethink the core.)
+
+    Rationale: A 6/10 in any dimension means "average". Top-tier founders
+    never bet months of development runway on average. Real conviction
+    demands clear differentiation (Brightness ≥ 7) AND proven demand
+    (Opportunity ≥ 7). Market size compounds — a great idea in a tiny market
+    stays tiny. If only the market is weak, no execution will save it.
+    Provide bullet-point reasoning (3-5 bullets each) for both dimensions.
+  expected_output: >
+    IDEA BRIGHTNESS SCORE: <n>/10
+    MARKET OPPORTUNITY SCORE: <n>/10
+    WEIGHTED SCORE: <x.x>/10  (Opportunity × 0.6 + Brightness × 0.4)
+
+    DECISION: STRONG GO ✅✅  /  GO ✅  /  CONDITIONAL GO ⚠️  /  NO-GO ❌
+
+    IDEA BRIGHTNESS – Reasoning:
+    • <bullet 1>
+    • <bullet 2>
+    • <bullet 3>
+
+    MARKET OPPORTUNITY – Reasoning:
+    • <bullet 1>
+    • <bullet 2>
+    • <bullet 3>
+
+    PIVOT ADVICE (only if CONDITIONAL GO or NO-GO):
+    • <specific, actionable change to strengthen the weak dimension>
+
+    RECOMMENDATION:
+    <2-3 sentences: what to do next — e.g. "Start MVP targeting X" for GO,
+    "Niche down to Y and re-score" for CONDITIONAL GO, or "Rethink Z axis
+    entirely" for NO-GO>
+  agent: idea_evaluator
+  output_file: output/0_GoNoGo_Decision.md
+
+market_research:
+  description: >
+    Research the iOS app market for this idea: {user_idea}
+    Identify the top 5 direct competitors. For each: name, category, rating,
+    review count, top user complaint, and what they do well.
+    Conclude with 3 clear market gaps and the primary target audience.
+  expected_output: >
+    Market Research Report:
+    1. Competitor table (5 apps: name, rating, reviews, top complaint, strength)
+    2. 3 market gaps with reasoning
+    3. Target audience profile (age range, motivation, device habits)
+    4. Recommended App Store category and genre tag
+  agent: market_researcher
+  output_file: output/1_Market_Research.md
+
+app_store_copy:
+  description: >
+    Using the market research, write the complete App Store listing for: {user_idea}
+    Hard rules — do not exceed these limits:
+    - Title: max 30 characters (must include the #1 ranked keyword)
+    - Subtitle: max 30 characters (different angle from title)
+    - Promotional text: max 170 characters
+    - Description: max 4000 characters. Structure must be:
+      Hook (2 lines, shown before fold) → Core benefit → 3 feature highlights
+      → Social proof angle → Call to action
+  expected_output: >
+    TITLE: <≤30 chars>
+    SUBTITLE: <≤30 chars>
+    PROMOTIONAL TEXT: <≤170 chars>
+    DESCRIPTION:
+    <full description, max 4000 chars>
+  agent: app_store_copywriter
+  output_file: output/2_App_Store_Copy.md
+
+aso_optimization:
+  description: >
+    Optimize the App Store listing for maximum organic search visibility.
+    1. Write the 100-character keyword field (comma-separated, never repeat
+       words already used in title or subtitle)
+    2. Rate the title and subtitle for search potential (1-10 each, with reason)
+    3. Provide 3 A/B title variants to test
+    4. Recommend primary and secondary App Store categories
+  expected_output: >
+    KEYWORD FIELD: <comma-separated, max 100 chars total>
+    TITLE SCORE: <n>/10 — <reason>
+    SUBTITLE SCORE: <n>/10 — <reason>
+    CATEGORIES: Primary: <cat> | Secondary: <cat>
+    A/B TITLE VARIANTS:
+    - A: <≤30 chars>
+    - B: <≤30 chars>
+    - C: <≤30 chars>
+  agent: aso_specialist
+  output_file: output/3_ASO_Report.md
+
+legal_review:
+  description: >
+    Review the App Store copy for legal and guideline compliance.
+    Check for: misleading claims, superlatives without proof ("best", "#1"),
+    fake social proof, privacy disclosure gaps, competitor name misuse.
+    Fix any issues and output the final approved listing.
+  expected_output: >
+    ISSUES FOUND: <numbered list, or "None">
+    CHANGES MADE: <what changed and why, or "None">
+    FINAL APPROVED LISTING:
+    TITLE: <final>
+    SUBTITLE: <final>
+    PROMOTIONAL TEXT: <final>
+    KEYWORD FIELD: <final>
+    DESCRIPTION:
+    <final approved description>
+  agent: legal_reviewer
+  output_file: output/4_Final_Listing.md

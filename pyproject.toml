@@ -1,0 +1,21 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ios-factory"
+version = "0.1.0"
+description = "crewAI multi-agent pipeline for iOS feature development (Swift / SpriteKit)"
+authors = ["Fatih Karabas"]
+readme = "README.md"
+packages = [{ include = "ios_factory", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+crewai = { version = ">=0.108.0", extras = ["tools"] }
+
+[tool.poetry.scripts]
+ios_factory = "ios_factory.main:run"
+
+[tool.crewai]
+type = "crew"
